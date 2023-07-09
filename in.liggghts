@@ -36,10 +36,6 @@ fix     zwalls1 all wall/gran model hertz tangential history primitive type 1 zp
 fix     zwalls2 all wall/gran model hertz tangential history primitive type 1 zplane 5.
 fix     foundation all wall/gran model hertz tangential history primitive type 1 zcylinder 2.5 0. 0.
 
-# cfd coupling
-#fix     cfd  all couple/cfd couple_every 2 mpi
-#fix     cfd2 all couple/cfd/force
-
 fix     pts all particletemplate/sphere 15485863 atom_type 1 density constant 2500 radius constant 0.25
 fix     pdd all particledistribution/discrete 32452843 1 pts 1.0
 
@@ -72,7 +68,14 @@ thermo_modify       lost ignore norm no
 run     1
 
 # insert the first particles so that dump is not empty
-dump     pdmp all custom/vtk 1000 post/dump*.vtk id type type x y z vx vy vz radius
+dump     pdmp all custom/vtk 1000 setup/dump*.vtk id type type x y z vx vy vz radius
 dump_modify pdmp binary yes
 
 run     50000
+
+undump   pdmp
+dump     pdmp all custom/vtk 1000 post/dump*.vtk id type type x y z vx vy vz radius
+
+# cfd coupling
+#fix     cfd  all couple/cfd couple_every 10 mpi
+#fix     cfd2 all couple/cfd/force
