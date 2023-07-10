@@ -1,0 +1,28 @@
+/*--------------------------------*- C++ -*----------------------------------*\
+|       o          |                                                          |
+|    o     o       | HELYX-OS                                                  |
+|   o   O   o      | Version: v2.4.0                                           |
+|    o     o       | Web:     http://www.engys.com                            |
+|       o          |                                                          |
+\*---------------------------------------------------------------------------*/
+FoamFile
+{
+    version 2.0;
+    format ascii;
+    class dictionary;
+    location system;
+    object decomposeParDict;
+}
+
+    numberOfSubdomains 4;
+    method simple;
+    simpleCoeffs
+    {
+        n ( 2 2 1);
+        delta 0.001;
+    }
+
+    distributed no;
+    roots
+    (
+    );

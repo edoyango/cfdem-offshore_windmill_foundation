@@ -27,7 +27,7 @@ pair_style      gran model hertz tangential no_history rolling_friction cdt #Her
 pair_coeff      * *
 
 # timestep, gravity
-timestep        1e-4
+timestep        1e-3
 
 fix             gravi all gravity 9.81 vector 0.0 0.0 -1.0
 
@@ -52,7 +52,7 @@ fix     ins nve_group insert/pack seed 62480659 distributiontemplate pdd &
         overlapcheck no &
         all_in  yes &
         region insert_region &
-        particles_in_region 5000 &
+        particles_in_region 1 &
         ntry_mc 10000
 
 # apply nve integration to all particles that are inserted as single particles
@@ -77,5 +77,5 @@ undump   pdmp
 dump     pdmp all custom/vtk 1000 post/dump*.vtk id type type x y z vx vy vz radius
 
 # cfd coupling
-#fix     cfd  all couple/cfd couple_every 10 mpi
-#fix     cfd2 all couple/cfd/force
+fix     cfd  all couple/cfd couple_every 10 mpi
+fix     cfd2 all couple/cfd/force
